@@ -56,13 +56,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.mertozan.notesaver.viewModel.NoteViewModel
+import com.mertozan.notesaver.data.Note
 import com.mertozan.notesaver.ui.theme.Orange
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNote(
     onNavigateNotes: () -> Unit,
-    // viewModel: NoteViewModel = hiltViewModel(),
+    viewModel: NoteViewModel = hiltViewModel(),
 ) {
 
     var text by remember { mutableStateOf("") }
@@ -289,12 +292,19 @@ fun AddNote(
 
                 Checkbox(
                     checked = isImportant,
-                    onCheckedChange = { isImportant = !isImportant }
+                    onCheckedChange = {
+                        isImportant = !isImportant
+                        val currentColor = cardBackground
+                        cardBackground = if (cardBackground == Color.Red) currentColor else Color.Red
+                    }
                 )
             }
 
             Button(
-                onClick = onNavigateNotes // viewModel.addNote(Note(title = title,body = text, isImportant = isImportant))
+                onClick = {
+                    onNavigateNotes()
+                    viewModel.addNote(Note(title = title,body = text, isImportant = isImportant))
+                }
                 , colors = ButtonDefaults.buttonColors(
                     MaterialTheme.colorScheme.primary
                 ),

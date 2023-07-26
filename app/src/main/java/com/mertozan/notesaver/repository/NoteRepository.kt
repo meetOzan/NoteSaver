@@ -13,7 +13,12 @@ class NoteRepository @Inject constructor(
 ) {
 
     val allNotes = MutableLiveData<List<Note>>()
-    val importantNotes = MutableLiveData<List<Note>>()
+
+    fun getAllNotes(){
+        CoroutineScope(Dispatchers.IO).launch {
+            allNotes.postValue(noteDao.getAllNotes())
+        }
+    }
 
     fun addNote(newNote : Note){
         CoroutineScope(Dispatchers.IO).launch {

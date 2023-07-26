@@ -12,16 +12,16 @@ data class Note(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "note_id")
-    val id: Int = 1,
+    val id: Int = 0,
 
     @ColumnInfo(name = "note_title")
-    val title: String = "",
+    val title: String,
 
     @ColumnInfo(name = "note_body")
-    val body: String = "",
+    val body: String,
 
     @ColumnInfo(name = "is_Important")
-    val isImportant: Boolean = false,
+    val isImportant: Boolean,
 
     /*
         @ColumnInfo(name = "card_color")

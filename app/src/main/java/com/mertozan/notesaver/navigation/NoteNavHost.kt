@@ -1,30 +1,19 @@
 package com.mertozan.notesaver.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mertozan.notesaver.ui.theme.screens.AddNote
 import com.mertozan.notesaver.ui.theme.screens.AllNoteScreen
-
-/*@Composable
-fun NoteNavHost(
-    navHostController: NavHostController
-) {
-    NavHost(navController = navHostController, startDestination = ShowNote.route){
-        composable(ShowNote.route){
-            AllNoteScreen(onFabClicked = {
-                navHostController.newNavigate(AddNote.route)
-            })
-        }
-        composable(AddNote.route){
-            com.mertozan.notesaver.ui.theme.screens.AddNote()
-        }
-    }
-}*/
+import com.mertozan.notesaver.viewModel.NoteViewModel
 
 @Composable
 fun NoteNavHost(navController: NavHostController) {
+
+    val viewModel = hiltViewModel<NoteViewModel>()
+
     NavHost(
         navController = navController, startDestination = ShowNote.route
     ) {
@@ -37,9 +26,10 @@ fun NoteNavHost(navController: NavHostController) {
         composable(
             route = AddNote.route
         ) {
-            AddNote(onNavigateNotes = {
-                navController.newNavigate(ShowNote.route)
-            })
+            AddNote(
+                onNavigateNotes = {
+                    navController.newNavigate(ShowNote.route)
+                })
         }
     }
 }
