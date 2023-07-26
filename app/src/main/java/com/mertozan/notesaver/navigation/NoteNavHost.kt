@@ -37,8 +37,9 @@ fun NoteNavHost(navController: NavHostController) {
         composable(
             route = AddNote.route
         ) {
-            AddNote(
-            )
+            AddNote(onNavigateNotes = {
+                navController.newNavigate(ShowNote.route)
+            })
         }
     }
 }

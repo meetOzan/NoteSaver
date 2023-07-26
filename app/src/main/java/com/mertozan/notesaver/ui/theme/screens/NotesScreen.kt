@@ -50,7 +50,8 @@ fun AllNoteScreen(
 
 @Composable
 fun NoteScreen(
-    modifier: Modifier = Modifier, viewModel: NoteViewModel = hiltViewModel()
+    modifier: Modifier = Modifier,
+    viewModel: NoteViewModel = hiltViewModel()
 ) {
 
     val allNotes = viewModel.allNotes.observeAsState()
