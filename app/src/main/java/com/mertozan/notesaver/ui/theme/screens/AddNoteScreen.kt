@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun AddNote(
 ) {
-
     Box(
         modifier = Modifier
             .background(Color.Yellow)
