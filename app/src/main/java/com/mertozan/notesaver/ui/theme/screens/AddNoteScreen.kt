@@ -189,7 +189,7 @@ fun AddNote(
                     Icon(
                         imageVector = Icons.Filled.Square,
                         modifier = Modifier.border(BorderStroke(0.5.dp, color = Color.Black)),
-                        contentDescription = "italic",
+                        contentDescription = "Yellow",
                         tint = Color.Yellow
                     )
                 }
@@ -202,7 +202,7 @@ fun AddNote(
                     Icon(
                         imageVector = Icons.Filled.Square,
                         modifier = Modifier.border(BorderStroke(0.5.dp, color = Color.Black)),
-                        contentDescription = "italic",
+                        contentDescription = "Cyan",
                         tint = Color.Cyan
                     )
                 }
@@ -214,7 +214,7 @@ fun AddNote(
                     Icon(
                         imageVector = Icons.Filled.Square,
                         modifier = Modifier.border(BorderStroke(0.5.dp, color = Color.Black)),
-                        contentDescription = "italic",
+                        contentDescription = "Orange",
                         tint = Color(0xFFFF6F00),
                     )
                 }

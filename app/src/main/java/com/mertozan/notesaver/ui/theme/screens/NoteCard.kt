@@ -53,8 +53,7 @@ import com.mertozan.notesaver.viewModel.NoteViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoteCard(
-    modifier: Modifier = Modifier, note: Note,
-    onDelete: () -> Unit
+    modifier: Modifier = Modifier, note: Note, onDelete: () -> Unit
 ) {
     val viewModel = hiltViewModel<NoteViewModel>()
 
@@ -92,7 +91,11 @@ fun NoteCard(
                 text = note.title,
                 style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier.padding(start = 12.dp, top = 8.dp),
-                color = if (note.isImportant) MaterialTheme.colorScheme.error else Color.Black,
+                color = if (note.isImportant && note.background != 0xFFFF6F00) {
+                    Color.Red
+                } else if (!note.isImportant) {
+                    Color.Black
+                } else Color.White,
                 fontSize = 24.sp,
             )
             Row(
@@ -105,7 +108,11 @@ fun NoteCard(
                     modifier = Modifier
                         .padding(start = 12.dp)
                         .weight(2f),
-                    color = if (note.isImportant) MaterialTheme.colorScheme.error else Color.Black,
+                    color = if (note.isImportant && note.background != 0xFFFF6F00) {
+                        Color.Red
+                    } else if (!note.isImportant) {
+                        Color.Black
+                    } else Color.White,
                     fontSize = 48.sp,
                 )
                 AnimatedVisibility(visible = isExtended) {
