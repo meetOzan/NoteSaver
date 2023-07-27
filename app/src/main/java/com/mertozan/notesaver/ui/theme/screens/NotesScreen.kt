@@ -1,5 +1,6 @@
 package com.mertozan.notesaver.ui.theme.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,16 +41,15 @@ fun AllNoteScreen(
         FloatingActionButton(
             onFabClicked
         )
-    }
-    ) { padding ->
+    }) { padding ->
         NoteScreen(Modifier.padding(padding))
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoteScreen(
-    modifier: Modifier = Modifier,
-    viewModel: NoteViewModel = hiltViewModel()
+    modifier: Modifier = Modifier, viewModel: NoteViewModel = hiltViewModel()
 ) {
 
     viewModel.getAllNote()
@@ -66,15 +66,18 @@ fun NoteScreen(
         if (allNotesS.isEmpty()) {
             EmptyPlaceHolder()
         } else {
-            LazyColumn(modifier = modifier
-                .fillMaxSize()
-                .padding(bottom = 8.dp, top = 4.dp),
+            LazyColumn(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(bottom = 8.dp, top = 4.dp),
                 content = {
-                    items(allNotesS) {
+                    items(allNotesS, key = { it.id }) {
                         NoteCard(
-                            note = it,
-                            onDelete = { viewModel.deleteNote(it) },
-                            onUpdate = {},
+                            note = it, onDelete = {
+                                viewModel.deleteNote(it)
+                                viewModel.getAllNote()
+                            },
+                            modifier = Modifier.animateItemPlacement()
                         )
                     }
                 })

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NoteSaver</string>
     <string name="welcome_to_the_note_saver">Welcome to the note saver.</string>
+    <string name="update_note">Update note</string>
+    <string name="new_message">New Message?</string>
+    <string name="new_title">New Title?</string>
 </resources>
