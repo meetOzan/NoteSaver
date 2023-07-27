@@ -31,6 +31,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,7 +44,6 @@ import com.mertozan.notesaver.data.Note
 fun NoteCard(
     modifier: Modifier = Modifier,
     note: Note,
-    color: Color = Color.Cyan,
     onDelete: () -> Unit,
     onUpdate: () -> Unit
 ) {
@@ -55,11 +57,11 @@ fun NoteCard(
         .padding(vertical = 8.dp, horizontal = 16.dp)
         .then(modifier),
         shape = ShapeDefaults.Large,
-        color = color,
+        color = Color(note.background),
         border = BorderStroke(
             0.5.dp,
             Brush.linearGradient(
-                listOf(Color.Black, Color.DarkGray, Color.LightGray)
+                listOf(Color.Black, Color.DarkGray, Color.LightGray, Color.Black)
             )
         ), onClick = { isExtended = !isExtended }) {
         Column(
@@ -121,8 +123,12 @@ fun NoteCard(
             AnimatedVisibility(visible = isExtended) {
                 Text(
                     text = note.body,
-                    modifier = Modifier.padding(horizontal = extraPadding, vertical = 6.dp),
-                    fontSize = 24.sp,
+                    modifier = Modifier
+                        .padding(horizontal = extraPadding, vertical = 6.dp),
+                    textAlign = TextAlign.Center,
+                    fontSize = if (!note.fontSize) 16.sp else 24.sp,
+                    fontWeight = if (!note.fontWeight) FontWeight.Normal else FontWeight.Bold,
+                    fontStyle = if (note.fontStyle) FontStyle.Italic else FontStyle.Italic,
                     maxLines = if (!isExtended) 1 else 100,
                 )
             }

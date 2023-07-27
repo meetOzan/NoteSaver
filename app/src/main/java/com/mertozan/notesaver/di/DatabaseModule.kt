@@ -22,7 +22,7 @@ object DatabaseModule {
             context,
             NoteDatabase::class.java,
             "note_database.db"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides

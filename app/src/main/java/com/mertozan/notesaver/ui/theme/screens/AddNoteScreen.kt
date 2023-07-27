@@ -59,29 +59,27 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mertozan.notesaver.viewModel.NoteViewModel
 import com.mertozan.notesaver.data.Note
-import com.mertozan.notesaver.ui.theme.Orange
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNote(
     onNavigateNotes: () -> Unit,
-    viewModel: NoteViewModel = hiltViewModel(),
+    viewModel: NoteViewModel = hiltViewModel()
 ) {
 
     var text by remember { mutableStateOf("") }
     var title by remember { mutableStateOf("") }
     var isImportant by remember { mutableStateOf(false) }
-    var cardBackground by remember {
-        mutableStateOf(Color.White)
+    var cardBackground : Long by remember {
+        mutableStateOf(0xFFCCCFCF)
     }
     var fontStyle by remember {
-        mutableStateOf<FontStyle>(FontStyle.Normal)
+        mutableStateOf(FontStyle.Normal)
     }
     var fontSize by remember {
-        mutableStateOf<Dp>(16.dp)
+        mutableStateOf(16.dp)
     }
     var fontWeight by remember {
-        mutableStateOf<FontWeight>(FontWeight.Normal)
+        mutableStateOf(FontWeight.Normal)
     }
 
     val localDensity = LocalDensity.current
@@ -185,7 +183,7 @@ fun AddNote(
                 IconButton(
                     onClick = {
                         cardBackground =
-                            if (cardBackground == Color.Yellow) Color.White else Color.Yellow
+                            if (cardBackground == 0xFFFFFF00) 0xFFCCCFCF else 0xFFFFFF00
                     }
                 ) {
                     Icon(
@@ -198,7 +196,7 @@ fun AddNote(
                 IconButton(
                     onClick = {
                         cardBackground =
-                            if (cardBackground == Color.Cyan) Color.White else Color.Cyan
+                            if (cardBackground == 0xFF00FFFF) 0xFFCCCFCF else 0xFF00FFFF
                     }
                 ) {
                     Icon(
@@ -210,7 +208,7 @@ fun AddNote(
                 }
                 IconButton(
                     onClick = {
-                        cardBackground = if (cardBackground == Orange) Color.White else Orange
+                        cardBackground = if (cardBackground == 0xFFFF6F00) 0xFFCCCFCF else 0xFFFF6F00
                     }
                 ) {
                     Icon(
@@ -223,8 +221,6 @@ fun AddNote(
             }
         }
 
-        // -------------------------------------
-
         Surface(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -233,7 +229,6 @@ fun AddNote(
                     .padding(16.dp),
                 verticalAlignment = Alignment.Top,
             ) {
-
                 Box(
                     modifier = Modifier
                         .padding(horizontal = 12.dp)
@@ -241,9 +236,10 @@ fun AddNote(
                         .border(0.5.dp, shape = ShapeDefaults.Medium, color = Color.Black)
                         .width(10.dp)
                         .clip(ShapeDefaults.Medium)
-                        .background(if (cardBackground == Color.White) Color.Gray else cardBackground)
+                        .background(color = Color(
+                            if (cardBackground == 0xFFCCCFCF) 0xFF888888 else cardBackground)
+                        )
                 )
-
                 TextField(
                     value = text,
                     onValueChange = { newText ->
@@ -294,8 +290,6 @@ fun AddNote(
                     checked = isImportant,
                     onCheckedChange = {
                         isImportant = !isImportant
-                        val currentColor = cardBackground
-                        cardBackground = if (cardBackground == Color.Red) currentColor else Color.Red
                     }
                 )
             }
@@ -303,16 +297,26 @@ fun AddNote(
             Button(
                 onClick = {
                     onNavigateNotes()
-                    viewModel.addNote(Note(title = title,body = text, isImportant = isImportant))
-                }
-                , colors = ButtonDefaults.buttonColors(
+                    viewModel.addNote(
+                        Note(
+                            title = title,
+                            body = text,
+                            isImportant = isImportant,
+                            fontStyle = fontStyle != FontStyle.Normal,
+                            fontSize = fontSize != 16.dp,
+                            fontWeight = fontWeight != FontWeight.Normal,
+                            background = cardBackground
+                            )
+                    )
+                },
+                colors = ButtonDefaults.buttonColors(
                     MaterialTheme.colorScheme.primary
                 ),
                 modifier = Modifier.padding(start = 24.dp)
             ) {
                 Text(text = "Save note", color = Color.White)
             }
-
+            
         }
     }
 }
