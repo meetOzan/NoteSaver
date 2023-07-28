@@ -8,6 +8,7 @@ Note saver with Jetpack Compose | DI &amp; Room
  - Dagger - Hilt
  - Room Database
  - MVVM
+ - Splash Screen
  - Coroutines
 
 ## Screens
