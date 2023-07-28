@@ -1,4 +1,4 @@
-package com.mertozan.notesaver.ui.theme.screens
+package com.mertozan.notesaver.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize

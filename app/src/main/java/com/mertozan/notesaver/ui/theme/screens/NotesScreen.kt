@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.NoteAdd
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mertozan.notesaver.components.FloatingActionButton
+import com.mertozan.notesaver.components.NoteCard
 import com.mertozan.notesaver.components.TopBar
 import com.mertozan.notesaver.data.Note
 import com.mertozan.notesaver.viewModel.NoteViewModel
@@ -91,8 +92,8 @@ fun EmptyPlaceHolder() {
         Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            imageVector = Icons.Filled.AccountBox,
-            contentDescription = "no note",
+            imageVector = Icons.Filled.NoteAdd,
+            contentDescription = "add note",
             modifier = Modifier
                 .padding(16.dp)
                 .size(120.dp)
