@@ -1,4 +1,4 @@
-package com.mertozan.notesaver
+package com.mertozan.notesaver.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

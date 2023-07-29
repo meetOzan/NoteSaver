@@ -1,4 +1,4 @@
-package com.mertozan.notesaver.ui.theme.screens
+package com.mertozan.notesaver.ui.screen
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.tween

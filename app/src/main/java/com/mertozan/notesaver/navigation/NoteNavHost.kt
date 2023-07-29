@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.mertozan.notesaver.ui.theme.screens.AddNote
-import com.mertozan.notesaver.ui.theme.screens.AllNoteScreen
-import com.mertozan.notesaver.ui.theme.screens.SplashScreen
+import com.mertozan.notesaver.ui.screen.AddNote
+import com.mertozan.notesaver.ui.screen.AllNoteScreen
+import com.mertozan.notesaver.ui.screen.SplashScreen
 
 @Composable
 fun NoteNavHost(navController: NavHostController) {

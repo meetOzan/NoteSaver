@@ -1,4 +1,4 @@
-package com.mertozan.notesaver.ui.theme.screens
+package com.mertozan.notesaver.ui.screen
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutLinearInEasing
