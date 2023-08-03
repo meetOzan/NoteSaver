@@ -162,7 +162,9 @@ fun AddNote(
                 }
                 IconButton(
                     onClick = {
-                        fontSize = if (fontSize == 24.dp) 16.dp else 24.dp
+                        fontSize = if (fontSize == 24.dp) {
+                            16.dp
+                        } else 24.dp
                     },
                 ) {
                     Icon(

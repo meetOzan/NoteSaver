@@ -39,7 +39,7 @@ fun NoteNavHost(
 }
 
 fun NavGraphBuilder.splashScreenRoute(onNavigate: () -> Unit) {
-    composable(AddNote.route) {
+    composable(Splash.route) {
         SplashScreen(
             onNavigate = onNavigate
         )
@@ -50,10 +50,13 @@ fun NavGraphBuilder.showNoteRoute(onFabClicked: () -> Unit) {
     composable(ShowNote.route) {
         val viewModel = hiltViewModel<NoteViewModel>()
         val notes by viewModel.allNotes.collectAsState()
+
         AllNoteScreen(
             onFabClicked = onFabClicked,
             allNoteZ = notes,
-            viewModel = viewModel
+            delete = {
+                viewModel.deleteNote(it)
+            }
         )
     }
 }

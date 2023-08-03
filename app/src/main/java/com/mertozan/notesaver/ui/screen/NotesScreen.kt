@@ -22,21 +22,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mertozan.notesaver.components.FloatingActionButton
 import com.mertozan.notesaver.components.NoteCard
 import com.mertozan.notesaver.components.TopBar
 import com.mertozan.notesaver.data.Note
-import com.mertozan.notesaver.viewModel.NoteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AllNoteScreen(
     onFabClicked: () -> Unit,
-    viewModel: NoteViewModel,
-    allNoteZ: List<Note>
+    allNoteZ: List<Note>,
+    delete: (Note) -> Unit
 ) {
     Scaffold(
         topBar = { TopBar() },
@@ -44,8 +42,8 @@ fun AllNoteScreen(
     ) { padding ->
         NoteScreen(
             modifier = Modifier.padding(padding),
-            viewModel = viewModel,
-            allNoteZ = allNoteZ
+            allNoteZ = allNoteZ,
+            delete = delete
         )
     }
 }
@@ -54,8 +52,8 @@ fun AllNoteScreen(
 @Composable
 fun NoteScreen(
     modifier: Modifier = Modifier,
-    viewModel: NoteViewModel,
-    allNoteZ: List<Note>
+    allNoteZ: List<Note>,
+    delete: (Note) -> Unit
 ) {
 
     Column(
@@ -77,7 +75,7 @@ fun NoteScreen(
                         NoteCard(
                             note = it,
                             onDelete = {
-                                viewModel.deleteNote(it)
+                                delete.invoke(it)
                             },
                             modifier = Modifier.animateItemPlacement()
                         )
@@ -110,9 +108,4 @@ fun EmptyPlaceHolder() {
             style = MaterialTheme.typography.labelSmall
         )
     }
-}
-
-@Preview
-@Composable
-fun PrevNotes() {
 }

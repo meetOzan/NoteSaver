@@ -1,7 +1,7 @@
 package com.mertozan.notesaver.repository
 
-import com.mertozan.notesaver.data.NoteDao
 import com.mertozan.notesaver.data.Note
+import com.mertozan.notesaver.data.NoteDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
