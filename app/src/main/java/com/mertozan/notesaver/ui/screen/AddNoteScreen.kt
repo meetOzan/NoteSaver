@@ -51,25 +51,24 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.mertozan.notesaver.viewModel.NoteViewModel
 import com.mertozan.notesaver.data.Note
+import com.mertozan.notesaver.viewModel.NoteViewModel
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNote(
     onNavigateNotes: () -> Unit,
-    viewModel: NoteViewModel = hiltViewModel()
+    viewModel: NoteViewModel
 ) {
 
     var text by remember { mutableStateOf("") }
     var title by remember { mutableStateOf("") }
     var isImportant by remember { mutableStateOf(false) }
-    var cardBackground : Long by remember {
+    var cardBackground: Long by remember {
         mutableStateOf(0xFFCCCFCF)
     }
     var fontStyle by remember {
@@ -208,7 +207,8 @@ fun AddNote(
                 }
                 IconButton(
                     onClick = {
-                        cardBackground = if (cardBackground == 0xFFFF6F00) 0xFFCCCFCF else 0xFFFF6F00
+                        cardBackground =
+                            if (cardBackground == 0xFFFF6F00) 0xFFCCCFCF else 0xFFFF6F00
                     }
                 ) {
                     Icon(
@@ -236,8 +236,10 @@ fun AddNote(
                         .border(0.5.dp, shape = ShapeDefaults.Medium, color = Color.Black)
                         .width(10.dp)
                         .clip(ShapeDefaults.Medium)
-                        .background(color = Color(
-                            if (cardBackground == 0xFFCCCFCF) 0xFF888888 else cardBackground)
+                        .background(
+                            color = Color(
+                                if (cardBackground == 0xFFCCCFCF) 0xFF888888 else cardBackground
+                            )
                         )
                 )
                 TextField(
@@ -306,7 +308,7 @@ fun AddNote(
                             fontSize = fontSize != 16.dp,
                             fontWeight = fontWeight != FontWeight.Normal,
                             background = cardBackground
-                            )
+                        )
                     )
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -316,7 +318,7 @@ fun AddNote(
             ) {
                 Text(text = "Save note", color = Color.White)
             }
-            
+
         }
     }
 }
@@ -324,9 +326,3 @@ fun AddNote(
 val Dp.dpTextUnit: TextUnit
     @Composable
     get() = with(LocalDensity.current) { this@dpTextUnit.toSp() }
-
-@Preview(showBackground = true)
-@Composable
-fun PrevAddNote() {
-    AddNote(onNavigateNotes = {})
-}

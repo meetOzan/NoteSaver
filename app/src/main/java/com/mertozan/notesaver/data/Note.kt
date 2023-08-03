@@ -23,7 +23,7 @@ data class Note(
 
     @ColumnInfo(name = "fontSize") val fontSize: Boolean = false,
 
-    @ColumnInfo(name = "fontWeight") val fontWeight: Boolean = false ,
+    @ColumnInfo(name = "fontWeight") val fontWeight: Boolean = false,
 
     @ColumnInfo(name = "note_background") val background: Long = 0xFFCCCFCF
 

@@ -1,10 +1,10 @@
-package com.mertozan.composesaver.repository
+package com.mertozan.notesaver.repository
 
-import androidx.lifecycle.MutableLiveData
 import com.mertozan.notesaver.data.NoteDao
 import com.mertozan.notesaver.data.Note
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -12,11 +12,11 @@ class NoteRepository @Inject constructor(
     private val noteDao: NoteDao
 ) {
 
-    val allNotes = MutableLiveData<List<Note>>()
+    val allNotes: MutableStateFlow<List<Note>> = MutableStateFlow(emptyList())
 
     fun getAllNotes(){
         CoroutineScope(Dispatchers.IO).launch {
-            allNotes.postValue(noteDao.getAllNotes())
+            allNotes.value = noteDao.getAllNotes()
         }
     }
 

@@ -10,7 +10,8 @@ import androidx.room.Update
 @Dao
 interface NoteDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE) // onConflict means; Just add what I gave, don't replace or anything.
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    // onConflict means; Just add what I gave, don't replace or anything.
     // @Upsert is same with @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addNote(note: Note)
 

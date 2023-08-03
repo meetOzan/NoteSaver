@@ -1,11 +1,12 @@
 package com.mertozan.notesaver.viewModel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mertozan.composesaver.repository.NoteRepository
+import com.mertozan.notesaver.repository.NoteRepository
 import com.mertozan.notesaver.data.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,9 +15,13 @@ class NoteViewModel @Inject constructor(
     private val repository: NoteRepository
 ) : ViewModel() {
 
-    val allNotes: LiveData<List<Note>> = repository.allNotes
+    var allNotes: StateFlow<List<Note>> = repository.allNotes.asStateFlow()
 
-    fun getAllNote() {
+    init {
+        getAllNote()
+    }
+
+    private fun getAllNote() {
         repository.getAllNotes()
     }
 

@@ -1,7 +1,7 @@
 package com.mertozan.notesaver.di
 
 import com.mertozan.notesaver.data.NoteDao
-import com.mertozan.composesaver.repository.NoteRepository
+import com.mertozan.notesaver.repository.NoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

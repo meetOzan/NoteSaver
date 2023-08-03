@@ -17,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -26,7 +25,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.mertozan.notesaver.components.FloatingActionButton
 import com.mertozan.notesaver.components.NoteCard
 import com.mertozan.notesaver.components.TopBar
@@ -37,51 +35,55 @@ import com.mertozan.notesaver.viewModel.NoteViewModel
 @Composable
 fun AllNoteScreen(
     onFabClicked: () -> Unit,
+    viewModel: NoteViewModel,
+    allNoteZ: List<Note>
 ) {
-    Scaffold(topBar = { TopBar() }, floatingActionButton = {
-        FloatingActionButton(
-            onFabClicked
+    Scaffold(
+        topBar = { TopBar() },
+        floatingActionButton = { FloatingActionButton(onFabClicked) }
+    ) { padding ->
+        NoteScreen(
+            modifier = Modifier.padding(padding),
+            viewModel = viewModel,
+            allNoteZ = allNoteZ
         )
-    }) { padding ->
-        NoteScreen(Modifier.padding(padding))
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoteScreen(
-    modifier: Modifier = Modifier, viewModel: NoteViewModel = hiltViewModel()
+    modifier: Modifier = Modifier,
+    viewModel: NoteViewModel,
+    allNoteZ: List<Note>
 ) {
-
-    viewModel.getAllNote()
-
-    val allNotes = viewModel.allNotes.observeAsState()
-    val allNotesS: List<Note> = allNotes.value ?: emptyList()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = 8.dp),
-        verticalArrangement = if (allNotesS.isEmpty()) Arrangement.Center else Arrangement.Top
+        verticalArrangement =
+        if (allNoteZ.isEmpty()) Arrangement.Center
+        else Arrangement.Top
     ) {
-        if (allNotesS.isEmpty()) {
+        if (allNoteZ.isEmpty()) {
             EmptyPlaceHolder()
         } else {
-            LazyColumn(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(bottom = 8.dp, top = 4.dp),
+            LazyColumn(modifier = modifier
+                .fillMaxSize()
+                .padding(bottom = 8.dp, top = 4.dp),
                 content = {
-                    items(allNotesS, key = { it.id }) {
+                    items(allNoteZ, key = { it.id }) {
                         NoteCard(
-                            note = it, onDelete = {
+                            note = it,
+                            onDelete = {
                                 viewModel.deleteNote(it)
-                                viewModel.getAllNote()
                             },
                             modifier = Modifier.animateItemPlacement()
                         )
                     }
-                })
+                }
+            )
         }
     }
 }
